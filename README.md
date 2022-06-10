@@ -1,36 +1,34 @@
 # scripts
 
-
 1) to add NSG rules to 1 or more NSGs  - create a file "/tmp/ip.txt" below format . 
+Add Rules
+-----------
+1. Inside code - 
+        Update "nsg_list_multiple" with your NSG name (case insensitive) 
+	e.g: 
+	        "nsg_list_multiple"=['NSG-DR-DESJCTMPR2ODR-PvtLBAAS001','NSG-DR-DESJCTMPRDODR-PvtLBAAS001']
 
-1.1)
-INGRESS:<Description>:CIDR-Addr:Port
-EGRESS:<Description>:CIDR-Addr:Port
-INGRESS: RFC 3-DG05HAG Ingress from customer CIDR 147.154.0.0/19 for soadev pub LB on 443 :147.154.0.0/19:443
+2. create a file “/tmp/ip.txt” below format .
+	e.g: 
+	INGRESS: RFC 3-DG05HAG Ingress from customer CIDR 147.154.0.0/19 for soadev pub LB on 443 :147.154.0.0/19:443
+	INGRESS:<Description>:CIDR-Addr:Port
+	EGRESS:<Description>:CIDR-Addr:Port
 
-1.2) 
-In code : Uncomment code 
-	add_nsg_rules_per_nsg_wrapper(nsg_list_multiple)
-1.3) 
-In code provide list of NSG names --- case insensitive 
-E.g: 
-	nsg_list_multiple=['NSG-DR-DESJCTMPR2ODR-PvtLBAAS001','NSG-DR-DESJCTMPRDODR-PvtLBAAS001']  
-
-1.4) run 
+3. Uncomment add_nsg_rules_per_nsg_wrapper(nsg_list_multiple)
+4) run 
 	python nsg_manage.py
 
-2) to delete Rules 
-	2 steps process ---- 
-	step-1) run code to get all rules for specified NSG into file "/tmp/1_build_delete"
-	    	- In code provide list of NSG names --- case insensitive
-		- uncomment and run code below 
-			build_delete_nsg_rules(nsg_list_multiple)
-	step-2) based on "/tmp/1_build_delete" prepare file "/tmp/delete.txt" in below format 
 
-e.g :  /tmp/delete.txt
-NSG-Prod-PROTWCIPRDNDR-DB:45E297
-NSG-Prod-PROTWCIPRD-PvtMT:B7D016
-NSG-Prod-PROTWCIPRD-PvtMT:F22446
-	        - In code provide list of NSG names --- case insensitive
-		- Uncomment and run code below to delete 
-			delete_nsg_rules()	
+Delete Rules Steps:
+-------------------—
+1. Inside code - 
+	Update "nsg_list_multiple" with your NSG name (case insensitive) and uncomment/run with "build_delete_nsg_rules"("nsg_list_multiple")
+2. Review output from Step 1
+3. Comment "build_delete_nsg_rules"("nsg_list_multiple")
+4. Based on info from Step-3 output file ( "/tmp/1_build_delete*)- Create /tmp/delete.txt as per example below 
+	e.g :  /tmp/delete.txt
+	NSG-Prod-PROTWCIPRDNDR-DB:45E297
+	NSG-Prod-PROTWCIPRD-PvtMT:B7D016
+	NSG-Prod-PROTWCIPRD-PvtMT:F22446
+5. In Code - Uncomment delete_nsg_rules()
+6. run python3 nsg_manage.py
