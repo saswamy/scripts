@@ -1,6 +1,5 @@
 # scripts
 
-1) to add NSG rules to 1 or more NSGs  - create a file "/tmp/ip.txt" below format . 
 Add Rules
 -----------
 1. Inside code - 
